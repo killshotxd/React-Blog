@@ -1,19 +1,30 @@
 .container {
-  height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: space-evenly;
   align-items: center;
 }
 
 .card {
-  width: 20rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  box-shadow: 1px 1px 3px #0003;
+  border-radius: 5px;
+  overflow: hidden;
+  cursor: pointer;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+Image.css-805ldi {
+  display: flex !important;
+  justify-content: center !important ;
 }
 
 .card img {
-  width: 15rem;
+  max-width: 80%;
 }
 
 .cardBadge {
@@ -21,5 +32,9 @@
 }
 
 .cardContent {
-  width: 16rem;
+  width: 20rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
