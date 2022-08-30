@@ -30,9 +30,8 @@ const Body = () => {
 
   return (
     <>
-      {blogs.map((item) => (
-        <div className={styles.container}>
-          {/* Card Start */}
+      <div className={styles.container}>
+        {blogs.map((item) => (
           <div className={styles.card}>
             <div className={styles.cardImg}>
               <div className={styles.deleteBtn}>
@@ -56,9 +55,8 @@ const Body = () => {
               <p>{item.content}</p>
             </div>
           </div>
-          {/* ---------Card End------------- */}
-        </div>
-      ))}
+        ))}
+      </div>
     </>
   );
 };
