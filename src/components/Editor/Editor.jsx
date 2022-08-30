@@ -9,6 +9,8 @@ import {
   Button,
 } from "@chakra-ui/react";
 import Header from "../Header/Header";
+import { useToast } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 import styles from "./Editor.module.css";
 
 import { addBlogsInDb } from "../../Firebase";
@@ -19,9 +21,21 @@ const Editor = () => {
     name: "",
     content: "",
   });
+  const toast = useToast();
+  const navigate = useNavigate();
+  const [editButtonDisabled, setEditButtonDisabled] = useState(false);
 
-  const handleSubmission = async () => {
+  const handleSubmission = async (event, property) => {
+    setEditButtonDisabled(true);
     await addBlogsInDb({ ...values });
+    toast({
+      title: "Blog created.",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+    });
+    setEditButtonDisabled(false);
+    navigate("/");
   };
 
   return (
@@ -85,7 +99,11 @@ const Editor = () => {
               />
             </div>
 
-            <Button onClick={handleSubmission} colorScheme="teal">
+            <Button
+              disabled={editButtonDisabled}
+              onClick={handleSubmission}
+              colorScheme="teal"
+            >
               Create
             </Button>
           </div>

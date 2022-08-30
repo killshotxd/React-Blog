@@ -2,8 +2,10 @@ import React from "react";
 import styles from "./Header.module.css";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+
 const Header = () => {
   const navigate = useNavigate();
+
   return (
     <>
       <div className={styles.header}>
