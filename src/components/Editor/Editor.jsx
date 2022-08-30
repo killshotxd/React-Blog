@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   FormControl,
   FormLabel,
@@ -10,7 +10,20 @@ import {
 } from "@chakra-ui/react";
 import Header from "../Header/Header";
 import styles from "./Editor.module.css";
+
+import { addBlogsInDb } from "../../Firebase";
+
 const Editor = () => {
+  const [values, setValues] = useState({
+    title: "",
+    name: "",
+    content: "",
+  });
+
+  const handleSubmission = async () => {
+    await addBlogsInDb({ ...values });
+  };
+
   return (
     <>
       <Header />
@@ -22,6 +35,13 @@ const Editor = () => {
               <FormControl>
                 <FormLabel>Title</FormLabel>
                 <Input
+                  value={values.title}
+                  onChange={(event) =>
+                    setValues((prev) => ({
+                      ...prev,
+                      title: event.target.value,
+                    }))
+                  }
                   isRequired
                   type="text"
                   placeholder="Enter Title for your Blog"
@@ -33,9 +53,16 @@ const Editor = () => {
               <FormControl>
                 <FormLabel>Name</FormLabel>
                 <Input
+                  value={values.name}
+                  onChange={(event) =>
+                    setValues((prev) => ({
+                      ...prev,
+                      name: event.target.value,
+                    }))
+                  }
                   isRequired
                   type="text"
-                  placeholder="Enter Name for your Blog"
+                  placeholder="Enter your Name"
                   width="40vw"
                 />
               </FormControl>
@@ -44,6 +71,13 @@ const Editor = () => {
             <div className={styles.title}>
               <FormLabel>Content</FormLabel>
               <Textarea
+                value={values.content}
+                onChange={(event) =>
+                  setValues((prev) => ({
+                    ...prev,
+                    content: event.target.value,
+                  }))
+                }
                 width="40vw"
                 isRequired
                 type="text"
@@ -51,7 +85,9 @@ const Editor = () => {
               />
             </div>
 
-            <Button colorScheme="teal">Create</Button>
+            <Button onClick={handleSubmission} colorScheme="teal">
+              Create
+            </Button>
           </div>
         </div>
       </div>
