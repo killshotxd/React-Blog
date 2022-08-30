@@ -44,3 +44,11 @@ Image.css-805ldi {
   align-items: center;
   text-align: center;
 }
+
+.alert {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  align-items: center;
+  margin-top: 30vh;
+}

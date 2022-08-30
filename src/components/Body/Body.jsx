@@ -4,6 +4,12 @@ import { getAllBlogs } from "../../Firebase";
 import { Image, Box, Badge, SimpleGrid, Button } from "@chakra-ui/react";
 import { deleteBlog } from "../../Firebase";
 import { useToast } from "@chakra-ui/react";
+import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+} from "@chakra-ui/react";
 const Body = () => {
   const [blogs, setBlogs] = useState([]);
   const [blogsLoaded, setBlogsLoaded] = useState(false);
@@ -78,7 +84,15 @@ const Body = () => {
               </div>
             ))
           ) : (
-            <p>No Blogs... </p>
+            <div className={styles.alert}>
+              <Alert status="error">
+                <AlertIcon />
+                <AlertTitle>No Blogs Found!</AlertTitle>
+                <AlertDescription>
+                  Create New One from New Post.
+                </AlertDescription>
+              </Alert>
+            </div>
           )
         ) : (
           <p>Loading.......</p>
