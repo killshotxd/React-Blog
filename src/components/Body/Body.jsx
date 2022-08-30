@@ -54,7 +54,7 @@ const Body = () => {
   return (
     <>
       <div className={styles.container}>
-        {blogs || blogsLoaded ? (
+        {blogs && blogsLoaded ? (
           blogs.length > 0 ? (
             blogs.map((item, index) => (
               <div className={styles.card} key={item.name + index}>
