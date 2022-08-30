@@ -1,0 +1,25 @@
+.container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  width: 20rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.card img {
+  width: 15rem;
+}
+
+.cardBadge {
+  width: fit-content;
+}
+
+.cardContent {
+  width: 16rem;
+}
