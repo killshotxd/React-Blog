@@ -18,6 +18,12 @@
   margin-top: 2rem;
 }
 
+.deleteBtn {
+  display: flex;
+  justify-content: end;
+  padding: 1rem;
+}
+
 Image.css-805ldi {
   display: flex !important;
   justify-content: center !important ;
