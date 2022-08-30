@@ -8,7 +8,12 @@ const Header = () => {
     <>
       <div className={styles.header}>
         <div className={styles.leftPart}>
-          <ul>Blog</ul>
+          <ul
+            onClick={() => navigate("/")}
+            style={{ cursor: "pointer", textDecorationLine: "underline" }}
+          >
+            Blog
+          </ul>
           <ul
             onClick={() => navigate("/edit")}
             style={{ cursor: "pointer", textDecorationLine: "underline" }}
