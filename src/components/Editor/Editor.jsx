@@ -1,7 +1,13 @@
 import React from "react";
+
+import Header from "../Header/Header";
 import styles from "./Editor.module.css";
 const Editor = () => {
-  return <div>Editor</div>;
+  return (
+    <div>
+      <Header />
+    </div>
+  );
 };
 
 export default Editor;

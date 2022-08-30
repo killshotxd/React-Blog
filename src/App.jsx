@@ -3,6 +3,7 @@ import Home from "./Home";
 import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Editor from "./components/Editor/Editor";
+import Body from "./components/Body/Body";
 const App = () => {
   return (
     <ChakraProvider>
