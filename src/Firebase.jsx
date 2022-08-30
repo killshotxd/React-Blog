@@ -40,4 +40,10 @@ const addBlogsInDb = async (blog) => {
   await addDoc(collectionRef, { ...blog });
 };
 
-export { db, addBlogsInDb };
+//-----------Get All Blogs --------------
+
+const getAllBlogs = async () => {
+  return await getDocs(collection(db, "blogs"));
+};
+
+export { db, addBlogsInDb, getAllBlogs };
