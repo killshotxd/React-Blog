@@ -46,4 +46,12 @@ const getAllBlogs = async () => {
   return await getDocs(collection(db, "blogs"));
 };
 
-export { db, addBlogsInDb, getAllBlogs };
+// -----------Delete Blogs-------------
+const deleteBlog = async (bid) => {
+  const docRef = doc(db, "blogs", bid);
+  await deleteDoc(docRef);
+};
+
+// --------------------------------------------------------------
+
+export { db, addBlogsInDb, getAllBlogs, deleteBlog };

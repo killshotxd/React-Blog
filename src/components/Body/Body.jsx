@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import styles from "./Body.module.css";
 import { getAllBlogs } from "../../Firebase";
 import { Image, Box, Badge, SimpleGrid, Button } from "@chakra-ui/react";
+import { deleteBlog } from "../../Firebase";
 const Body = () => {
   const [blogs, setBlogs] = useState([]);
 
+  // -----------FetchBlogs-----------------
   const fetchAllProjects = async () => {
     const result = await getAllBlogs();
 
@@ -18,7 +20,14 @@ const Body = () => {
     setBlogs(tempBlogs);
     console.log(blogs);
   };
+  // ---------------------------------------------
 
+  const handleDeletion = async (bid) => {
+    await deleteBlog(bid);
+    fetchAllProjects();
+  };
+
+  // ---------------------------------------------
   useEffect(() => {
     fetchAllProjects();
   }, []);
@@ -31,11 +40,11 @@ const Body = () => {
   return (
     <>
       <div className={styles.container}>
-        {blogs.map((item) => (
-          <div className={styles.card}>
+        {blogs.map((item, index) => (
+          <div className={styles.card} key={item.name + index}>
             <div className={styles.cardImg}>
               <div className={styles.deleteBtn}>
-                <Button>Delete</Button>
+                <Button onClick={() => handleDeletion(item.bid)}>Delete</Button>
               </div>
               <Box
                 boxSize="xs"
