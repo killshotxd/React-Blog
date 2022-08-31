@@ -32,6 +32,18 @@
   gap: 2rem;
 }
 
+.progress {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  font-weight: 400;
+  margin-top: 1rem;
+}
+.progress p span {
+  font-weight: bold;
+  color: teal;
+}
+
 .title {
   display: flex;
   flex-direction: column;

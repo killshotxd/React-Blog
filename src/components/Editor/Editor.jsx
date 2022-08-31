@@ -93,9 +93,12 @@ const Editor = () => {
               />
 
               {imageUploadStarted && (
-                <p>
-                  <span>{imageUploadProgress.toFixed(2)}%</span> Uploaded...
-                </p>
+                <div className={styles.progress}>
+                  <p>
+                    <span>{imageUploadProgress.toFixed(2)}%</span>{" "}
+                    <span>Uploaded...</span>
+                  </p>
+                </div>
               )}
             </div>
             <div className={styles.title}>

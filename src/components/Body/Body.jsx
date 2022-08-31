@@ -10,6 +10,10 @@ import {
   AlertTitle,
   AlertDescription,
 } from "@chakra-ui/react";
+import Loader from "../Loader/Loader";
+
+// -----------Imports End-------------------
+
 const Body = () => {
   const [blogs, setBlogs] = useState([]);
   const [blogsLoaded, setBlogsLoaded] = useState(false);
@@ -59,11 +63,6 @@ const Body = () => {
             blogs.map((item, index) => (
               <div className={styles.card} key={item.name + index}>
                 <div className={styles.cardImg}>
-                  <div className={styles.deleteBtn}>
-                    <Button onClick={() => handleDeletion(item.bid)}>
-                      Delete
-                    </Button>
-                  </div>
                   <Box
                     boxSize="xs"
                     height="auto"
@@ -80,6 +79,15 @@ const Body = () => {
                 <strong>{item.title}</strong>
                 <div className={styles.cardContent}>
                   <p>{item.content}</p>
+
+                  <div className={styles.deleteBtn}>
+                    <Button
+                      colorScheme="teal"
+                      onClick={() => handleDeletion(item.bid)}
+                    >
+                      Delete
+                    </Button>
+                  </div>
                 </div>
               </div>
             ))
@@ -95,7 +103,7 @@ const Body = () => {
             </div>
           )
         ) : (
-          <p>Loading.......</p>
+          <Loader />
         )}
       </div>
     </>
