@@ -115,7 +115,7 @@ const Editor = () => {
                   isRequired
                   type="text"
                   placeholder="Enter Title for your Blog"
-                  width="40vw"
+                  width="60vw"
                 />
               </FormControl>
             </div>
@@ -133,7 +133,7 @@ const Editor = () => {
                   isRequired
                   type="text"
                   placeholder="Enter your Name"
-                  width="40vw"
+                  width="60vw"
                 />
               </FormControl>
             </div>
@@ -148,7 +148,7 @@ const Editor = () => {
                     content: event.target.value,
                   }))
                 }
-                width="40vw"
+                width="60vw"
                 isRequired
                 type="text"
                 placeholder="Enter Content for blog."
