@@ -5,6 +5,13 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
+
+import {
   doc,
   getFirestore,
   setDoc,
@@ -31,6 +38,7 @@ const firebaseConfig = {
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 const db = getFirestore(firebaseApp);
+const storage = getStorage(firebaseApp);
 
 // --------------------Add Blogs----------------
 
@@ -52,6 +60,47 @@ const deleteBlog = async (bid) => {
   await deleteDoc(docRef);
 };
 
+//--------------------- Image Upload ------------------------------
+
+const uploadImage = (file, progressCallback, urlCallback, errorCallback) => {
+  if (!file) {
+    errorCallback("File not found");
+    return;
+  }
+
+  const fileType = file.type;
+  const fileSize = file.size / 1024 / 1024;
+
+  if (!fileType.includes("image")) {
+    errorCallback("File must an image");
+    return;
+  }
+  if (fileSize > 2) {
+    errorCallback("File must smaller than 2MB");
+    return;
+  }
+
+  const storageRef = ref(storage, file.name);
+
+  const task = uploadBytesResumable(storageRef, file);
+
+  task.on(
+    "state_changed",
+    (snapshot) => {
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      progressCallback(progress);
+    },
+    (error) => {
+      errorCallback(error.message);
+    },
+    () => {
+      getDownloadURL(task.snapshot.ref).then((url) => {
+        urlCallback(url);
+      });
+    }
+  );
+};
+
 // --------------------------------------------------------------
 
-export { db, addBlogsInDb, getAllBlogs, deleteBlog };
+export { db, addBlogsInDb, getAllBlogs, deleteBlog, uploadImage };

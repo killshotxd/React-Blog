@@ -71,7 +71,7 @@ const Body = () => {
                     display="flex"
                     justifyContent="center"
                   >
-                    <Image src="https://bit.ly/dan-abramov" alt="Dan Abramov" />
+                    <Image src={item.thumbnail} alt="Dan Abramov" />
                   </Box>
                 </div>
                 <div className={styles.cardBadge}>

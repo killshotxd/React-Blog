@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   FormControl,
   FormLabel,
@@ -13,14 +13,22 @@ import { useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Editor.module.css";
 
-import { addBlogsInDb } from "../../Firebase";
+import { addBlogsInDb, uploadImage } from "../../Firebase";
 
 const Editor = () => {
+  const fileInputRef = useRef();
   const [values, setValues] = useState({
+    thumbnail:
+      "https://cdn.iconscout.com/icon/premium/png-256-thumb/developer-5-338076.png",
     title: "",
     name: "",
     content: "",
   });
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const [imageUploadStarted, setImageUploadStarted] = useState(false);
+
+  const [imageUploadProgress, setImageUploadProgress] = useState(0);
   const toast = useToast();
   const navigate = useNavigate();
   const [editButtonDisabled, setEditButtonDisabled] = useState(false);
@@ -38,6 +46,31 @@ const Editor = () => {
     navigate("/");
   };
 
+  const handleFileInputChange = (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    setImageUploadStarted(true);
+    uploadImage(
+      file,
+      (progress) => {
+        console.log(file);
+        setImageUploadProgress(progress);
+      },
+      (url) => {
+        console.log(url);
+        setImageUploadStarted(false);
+        setImageUploadProgress(0);
+        setValues((prev) => ({ ...prev, thumbnail: url }));
+      },
+      (error) => {
+        console.log("Error->", errorMessage);
+        setImageUploadStarted(false);
+        setErrorMessage(error);
+      }
+    );
+  };
+
   return (
     <>
       <Header />
@@ -45,6 +78,26 @@ const Editor = () => {
         <div className={styles.heading}>Create a Blog</div>
         <div className={styles.container}>
           <div className={styles.containerContent}>
+            <div className={styles.imgInput}>
+              <input
+                ref={fileInputRef}
+                type="file"
+                style={{ display: "none" }}
+                onChange={handleFileInputChange}
+              />
+
+              <img
+                src={values.thumbnail}
+                onClick={() => fileInputRef.current.click()}
+                style={{ cursor: "pointer" }}
+              />
+
+              {imageUploadStarted && (
+                <p>
+                  <span>{imageUploadProgress.toFixed(2)}%</span> Uploaded...
+                </p>
+              )}
+            </div>
             <div className={styles.title}>
               <FormControl>
                 <FormLabel>Title</FormLabel>
@@ -97,6 +150,9 @@ const Editor = () => {
                 type="text"
                 placeholder="Enter Content for blog."
               />
+            </div>
+            <div className={styles.errorMsg}>
+              <p style={{ color: "red" }}>{errorMessage}</p>
             </div>
 
             <Button
