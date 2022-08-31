@@ -12,14 +12,14 @@ import Header from "../Header/Header";
 import { useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Editor.module.css";
-
+import { RoughNotation, RoughNotationGroup } from "react-rough-notation";
 import { addBlogsInDb, uploadImage } from "../../Firebase";
 
 const Editor = () => {
   const fileInputRef = useRef();
   const [values, setValues] = useState({
     thumbnail:
-      "https://cdn.iconscout.com/icon/premium/png-256-thumb/developer-5-338076.png",
+      "https://www.agora-gallery.com/advice/wp-content/uploads/2015/10/image-placeholder-300x200.png",
     title: "",
     name: "",
     content: "",
@@ -75,7 +75,9 @@ const Editor = () => {
     <>
       <Header />
       <div className={styles.masterCont}>
-        <div className={styles.heading}>Create a Blog</div>
+        <RoughNotation type="underline" show={true} animationDelay={1000}>
+          <div className={styles.heading}>Create a Blog</div>
+        </RoughNotation>
         <div className={styles.container}>
           <div className={styles.containerContent}>
             <div className={styles.imgInput}>
@@ -85,7 +87,7 @@ const Editor = () => {
                 style={{ display: "none" }}
                 onChange={handleFileInputChange}
               />
-
+              <FormLabel>Thumbnail</FormLabel>
               <img
                 src={values.thumbnail}
                 onClick={() => fileInputRef.current.click()}

@@ -4,6 +4,7 @@ import { getAllBlogs } from "../../Firebase";
 import { Image, Box, Badge, SimpleGrid, Button } from "@chakra-ui/react";
 import { deleteBlog } from "../../Firebase";
 import { useToast } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 import {
   Alert,
   AlertIcon,
@@ -61,7 +62,13 @@ const Body = () => {
         {blogs && blogsLoaded ? (
           blogs.length > 0 ? (
             blogs.map((item, index) => (
-              <div className={styles.card} key={item.name + index}>
+              <motion.div
+                whileHover={{ scale: 1.1 }}
+                onHoverStart={(e) => {}}
+                onHoverEnd={(e) => {}}
+                className={styles.card}
+                key={item.name + index}
+              >
                 <div className={styles.cardImg}>
                   <Box
                     boxSize="xs"
@@ -89,7 +96,7 @@ const Body = () => {
                     </Button>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))
           ) : (
             <div className={styles.alert}>

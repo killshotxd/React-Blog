@@ -10,7 +10,7 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  box-shadow: 1px 4px 7px #0000005c;
+  box-shadow: 1px 4px 7px #79c3c6;
   border-radius: 5px;
   overflow: hidden;
   cursor: pointer;
@@ -39,7 +39,7 @@ Image.css-805ldi {
 }
 
 .cardContent {
-  width: 24rem;
+  width: 21rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -48,7 +48,7 @@ Image.css-805ldi {
 }
 
 .cardContent p {
-  padding: 2rem;
+  padding: 1rem;
   font-weight: 600;
 }
 
