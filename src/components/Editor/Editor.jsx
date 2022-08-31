@@ -15,7 +15,8 @@ import styles from "./Editor.module.css";
 import { RoughNotation, RoughNotationGroup } from "react-rough-notation";
 import { addBlogsInDb, uploadImage } from "../../Firebase";
 
-const Editor = () => {
+const Editor = (props) => {
+  const blogDetails = props.blogDetails;
   const fileInputRef = useRef();
   const [values, setValues] = useState({
     thumbnail:
@@ -23,6 +24,7 @@ const Editor = () => {
     title: "",
     name: "",
     content: "",
+    refBlog: "",
   });
   const [errorMessage, setErrorMessage] = useState("");
 

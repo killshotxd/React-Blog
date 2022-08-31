@@ -36,7 +36,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const firebaseApp = firebase.initializeApp(firebaseConfig);
-
+const auth = firebase.auth(firebaseApp);
 const db = getFirestore(firebaseApp);
 const storage = getStorage(firebaseApp);
 
@@ -52,6 +52,25 @@ const addBlogsInDb = async (blog) => {
 
 const getAllBlogs = async () => {
   return await getDocs(collection(db, "blogs"));
+};
+
+// Get Specific Blog
+const getBlogFromDb = async (bid) => {
+  const docRef = doc(db, "blogs", bid);
+  const result = await getDoc(docRef);
+
+  if (!result.exists()) return null;
+  return result.data();
+};
+// -------------------
+
+const getAllBlogsForBlog = async (bid) => {
+  if (!bid) return;
+  const collectionRef = collection(db, "blogs");
+  const condition = where("refBlog", "==", bid);
+  const dbQuery = query(collectionRef, condition);
+
+  return await getDocs(dbQuery);
 };
 
 // -----------Delete Blogs-------------
@@ -103,4 +122,12 @@ const uploadImage = (file, progressCallback, urlCallback, errorCallback) => {
 
 // --------------------------------------------------------------
 
-export { db, addBlogsInDb, getAllBlogs, deleteBlog, uploadImage };
+export {
+  db,
+  auth,
+  addBlogsInDb,
+  getAllBlogs,
+  getBlogFromDb,
+  deleteBlog,
+  uploadImage,
+};

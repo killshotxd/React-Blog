@@ -5,6 +5,7 @@ import { Image, Box, Badge, SimpleGrid, Button } from "@chakra-ui/react";
 import { deleteBlog } from "../../Firebase";
 import { useToast } from "@chakra-ui/react";
 import { motion } from "framer-motion";
+import { Route, useNavigate } from "react-router-dom";
 import {
   Alert,
   AlertIcon,
@@ -12,12 +13,17 @@ import {
   AlertDescription,
 } from "@chakra-ui/react";
 import Loader from "../Loader/Loader";
+import PostBody from "../PostBody/PostBody";
 
 // -----------Imports End-------------------
 
 const Body = () => {
   const [blogs, setBlogs] = useState([]);
+
   const [blogsLoaded, setBlogsLoaded] = useState(false);
+  const [isReadMore, setIsReadMore] = useState(true);
+  const navigate = useNavigate();
+  // ---------Read More------------------
 
   // -----------FetchBlogs-----------------
   const fetchAllProjects = async () => {
@@ -58,6 +64,7 @@ const Body = () => {
 
   return (
     <>
+      <h1 className={styles.heading}>Blogs</h1>
       <div className={styles.container}>
         {blogs && blogsLoaded ? (
           blogs.length > 0 ? (
@@ -77,7 +84,7 @@ const Body = () => {
                     display="flex"
                     justifyContent="center"
                   >
-                    <Image src={item.thumbnail} alt="Dan Abramov" />
+                    <Image src={item.thumbnail} alt="Thumbnail" />
                   </Box>
                 </div>
                 <div className={styles.cardBadge}>
@@ -85,7 +92,16 @@ const Body = () => {
                 </div>
                 <strong>{item.title}</strong>
                 <div className={styles.cardContent}>
-                  <p>{item.content}</p>
+                  <p>
+                    <Button
+                      onClick={() => (
+                        <Route path="/post" element={<PostBody />} />
+                      )}
+                      colorScheme="teal"
+                    >
+                      Read Here
+                    </Button>
+                  </p>
 
                   <div className={styles.deleteBtn}>
                     <Button
