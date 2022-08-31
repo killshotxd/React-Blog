@@ -11,3 +11,7 @@
   display: flex;
   gap: 2rem;
 }
+
+.leftPart ul:hover {
+  color: rgb(89, 223, 223);
+}

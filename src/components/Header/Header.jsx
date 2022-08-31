@@ -12,17 +12,24 @@ const Header = () => {
         <div className={styles.leftPart}>
           <ul
             onClick={() => navigate("/")}
-            style={{ cursor: "pointer", textDecorationLine: "underline" }}
+            style={{
+              cursor: "pointer",
+              textDecorationLine: "underline",
+              fontWeight: "bold",
+            }}
           >
             Blog
           </ul>
           <ul
             onClick={() => navigate("/edit")}
-            style={{ cursor: "pointer", textDecorationLine: "underline" }}
+            style={{
+              cursor: "pointer",
+              textDecorationLine: "underline",
+              fontWeight: "bold",
+            }}
           >
             New Post
           </ul>
-          <ul>List</ul>
         </div>
         <div className={styles.rightPart}>
           <Button colorScheme="teal" variant="solid">
