@@ -13,13 +13,11 @@ import {
   AlertDescription,
 } from "@chakra-ui/react";
 import Loader from "../Loader/Loader";
-import PostBody from "../PostBody/PostBody";
 
 // -----------Imports End-------------------
 
 const Body = () => {
   const [blogs, setBlogs] = useState([]);
-
   const [blogsLoaded, setBlogsLoaded] = useState(false);
   const [isReadMore, setIsReadMore] = useState(true);
   const navigate = useNavigate();
@@ -35,7 +33,7 @@ const Body = () => {
     const tempBlogs = [];
 
     result.forEach((doc) => tempBlogs.push({ ...doc.data(), bid: doc.id }));
-
+    console.log(tempBlogs);
     setBlogs(tempBlogs);
     console.log(blogs);
   };
@@ -92,16 +90,7 @@ const Body = () => {
                 </div>
                 <strong>{item.title}</strong>
                 <div className={styles.cardContent}>
-                  <p>
-                    <Button
-                      onClick={() => (
-                        <Route path="/post" element={<PostBody />} />
-                      )}
-                      colorScheme="teal"
-                    >
-                      Read Here
-                    </Button>
-                  </p>
+                  <p>{item.content}</p>
 
                   <div className={styles.deleteBtn}>
                     <Button

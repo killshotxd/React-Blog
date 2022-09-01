@@ -54,25 +54,6 @@ const getAllBlogs = async () => {
   return await getDocs(collection(db, "blogs"));
 };
 
-// Get Specific Blog
-const getBlogFromDb = async (bid) => {
-  const docRef = doc(db, "blogs", bid);
-  const result = await getDoc(docRef);
-
-  if (!result.exists()) return null;
-  return result.data();
-};
-// -------------------
-
-const getAllBlogsForBlog = async (bid) => {
-  if (!bid) return;
-  const collectionRef = collection(db, "blogs");
-  const condition = where("refBlog", "==", bid);
-  const dbQuery = query(collectionRef, condition);
-
-  return await getDocs(dbQuery);
-};
-
 // -----------Delete Blogs-------------
 const deleteBlog = async (bid) => {
   const docRef = doc(db, "blogs", bid);
@@ -122,12 +103,4 @@ const uploadImage = (file, progressCallback, urlCallback, errorCallback) => {
 
 // --------------------------------------------------------------
 
-export {
-  db,
-  auth,
-  addBlogsInDb,
-  getAllBlogs,
-  getBlogFromDb,
-  deleteBlog,
-  uploadImage,
-};
+export { db, auth, addBlogsInDb, getAllBlogs, deleteBlog, uploadImage };
