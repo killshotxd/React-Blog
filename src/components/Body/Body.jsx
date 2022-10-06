@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Body.module.css";
 import { getAllBlogs } from "../../Firebase";
-import { Image, Box, Badge, SimpleGrid, Button } from "@chakra-ui/react";
+import {
+  Image,
+  Box,
+  Badge,
+  SimpleGrid,
+  Button,
+  useDisclosure,
+  Input,
+} from "@chakra-ui/react";
 import { deleteBlog } from "../../Firebase";
 import { useToast } from "@chakra-ui/react";
 import { motion } from "framer-motion";
@@ -12,6 +20,15 @@ import {
   AlertTitle,
   AlertDescription,
 } from "@chakra-ui/react";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from "@chakra-ui/react";
 import Loader from "../Loader/Loader";
 
 // -----------Imports End-------------------
@@ -21,6 +38,8 @@ const Body = () => {
   const [blogsLoaded, setBlogsLoaded] = useState(false);
   const [isReadMore, setIsReadMore] = useState(true);
   const navigate = useNavigate();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   // ---------Read More------------------
 
   // -----------FetchBlogs-----------------
@@ -39,7 +58,8 @@ const Body = () => {
   };
   // ---------------------------------------------
   const toast = useToast();
-  const handleDeletion = async (bid) => {
+
+  const handleDeletion = async (bid, title) => {
     await deleteBlog(bid);
     toast({
       title: "Deletion Completed.",
@@ -92,14 +112,49 @@ const Body = () => {
                 <div className={styles.cardContent}>
                   <p>{item.content}</p>
 
-                  <div className={styles.deleteBtn}>
-                    <Button
+                  {/* <div className={styles.deleteBtn}>
+                    {/* <Button
                       colorScheme="teal"
-                      onClick={() => handleDeletion(item.bid)}
+                      onClick={() => {handleDeletion(item.bid || item.title)}; {onOpen}}
+
                     >
                       Delete
+                    </Button> */}
+                  {/*
+                    <Button colorScheme="teal" onClick={onOpen}>
+                      Delete
                     </Button>
-                  </div>
+
+                    <Modal isOpen={isOpen} onClose={onClose}>
+                      <ModalOverlay />
+                      <ModalContent>
+                        <ModalHeader>Modal Title</ModalHeader>
+                        <ModalCloseButton />
+                        {/* <ModalBody>
+                          <Lorem count={2} />
+                        </ModalBody> */}
+                  {/*
+                        <ModalBody>
+                          <p>Are you sure?..</p>
+                          <Input
+                            placeholder="Enter password"
+                            onChange={handleChange}
+                          />
+                        </ModalBody>
+                        <ModalFooter>
+                          <Button colorScheme="blue" mr={3} onClick={onClose}>
+                            Close
+                          </Button>
+                          <Button
+                            onClick={() => handleDeletion(item.bid)}
+                            variant="ghost"
+                          >
+                            Confirm
+                          </Button>
+                        </ModalFooter>
+                      </ModalContent>
+                    </Modal>
+                  </div> */}
                 </div>
               </motion.div>
             ))
